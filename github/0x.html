@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robux Bubbles</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Retro font */
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: 'Press Start 2P', cursive; /* Apply retro font */
+            overflow: hidden;
+            position: relative;
+            height: 100vh; /* Ensure body covers full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Background video styles */
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire viewport */
+            z-index: -1; /* Place the video behind the content */
+        }
+
+        h1 {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 32px; /* Adjust size for visibility */
+            color: #fff; /* White text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: add a shadow for better readability */
+        }
+
+        .bubbles-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .bubble {
+            background-color: rgba(68, 68, 68, 0.3); /* More transparency */
+            border-radius: 15px; /* Smooth corners */
+            padding: 20px;
+            text-align: center;
+            width: 150px; /* Adjust width and height for bubble size */
+            height: 180px; /* Increase height for Y-axis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 12px; /* Adjust font size for retro look */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .bubble img {
+            width: 24px; /* Adjusted icon size */
+            height: 24px; /* Adjusted icon size */
+            margin-bottom: 10px; /* Space between icon and text */
+        }
+
+        .bubble:hover {
+            transform: scale(1.1); /* Grow the bubble on hover */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* Red outline glow on hover */
+        }
+
+        .discord-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;  /* Slightly smaller width */
+            height: 45px; /* Slightly smaller height */
+            background-image: url('discord.svg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .discord-button:hover {
+            transform: scale(1.1); /* Grow the button on hover */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* Red outline glow on hover */
+        }
+
+        .wave-container {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+            opacity: 0.7;
+            animation: wave-animation 0.8s ease-out forwards; /* Faster animation */
+        }
+
+        @keyframes wave-animation {
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video class="background-video" autoplay loop>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h1>Black Market</h1> <!-- Added h1 text -->
+
+    <div class="bubbles-container">
+        <div class="bubble">
+            <img src="robuxidk.png" alt="Robux Icon"> <!-- Updated image -->
+            400 Robux<br><br>2$
+        </div>
+        <div class="bubble">
+            <img src="robuxidk.png" alt="Robux Icon"> <!-- Updated image -->
+            800 Robux<br><br>4$
+        </div>
+        <div class="bubble">
+            <img src="robuxidk.png" alt="Robux Icon"> <!-- Updated image -->
+            1700 Robux<br><br>8.50$
+        </div>
+        <div class="bubble">
+            <img src="robuxidk.png" alt="Robux Icon"> <!-- Updated image -->
+            4500 Robux<br><br>22.50$
+        </div>
+    </div>
+
+    <!-- Discord Button -->
+    <a href="https://discord.gg/ZCZSmHkE" target="_blank">
+        <button class="discord-button"></button>
+    </a>
+
+    <script>
+        document.body.addEventListener('click', function(e) {
+            var color = Math.random() < 0.5 ? 'red' : 'blue';
+            var waveContainer = document.createElement('div');
+            waveContainer.className = 'wave-container';
+            waveContainer.style.left = `${e.clientX}px`;
+            waveContainer.style.top = `${e.clientY}px`;
+
+            for (var i = 0; i < 5; i++) { /* Increased number of waves */
+                var wave = document.createElement('div');
+                wave.className = 'wave';
+                wave.style.borderColor = color;
+                wave.style.width = `${10 + i * 5}px`; /* Closer waves */
+                wave.style.height = `${10 + i * 5}px`;
+                wave.style.marginLeft = `-${5 + i * 2.5}px`;
+                wave.style.marginTop = `-${5 + i * 2.5}px`;
+                waveContainer.appendChild(wave);
+            }
+
+            document.body.appendChild(waveContainer);
+
+            // Remove the waves after animation
+            setTimeout(function() {
+                document.body.removeChild(waveContainer);
+            }, 800); /* Shorter duration */
+        });
+    </script>
+</body>
+</html>
